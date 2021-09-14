@@ -21,36 +21,36 @@ public class ChartsManager {
 
     private String title;
 
-    HIChartView setChart(
+    public HIChartView setChart(
             HIChartView chartView,
             Context c,
             String chartType,
             String dataFilename,
             Boolean enableExport
-    ){
-        if(chartType.equals("area")) title = "Steps";
+    ) {
+        if (chartType.equals("area")) title = "Steps";
         else title = "Calories";
 
         Double total = 0.0;
         String subtitle;
 
         Map allSeries = jsonFileToMap(dataFilename, c);
-        List<Double> daySeries = (List)allSeries.get("day"); // we pass scale of the chart (day, week, etc...)
+        List<Double> daySeries = (List) allSeries.get("day"); // we pass scale of the chart (day, week, etc...)
         StringBuilder series = new StringBuilder();
         for (Double d : daySeries) {
             series.append(String.valueOf(d.intValue()));
             series.append(",");
             total = total + d;
         }
-        series.deleteCharAt(series.length()-1);
+        series.deleteCharAt(series.length() - 1);
         subtitle = (String.valueOf(total));
-        subtitle = subtitle.substring(0, subtitle.length()-2);
+        subtitle = subtitle.substring(0, subtitle.length() - 2);
 
         Map<String, String> options = new HashMap<>();
         options.put("chartType", chartType);
         options.put("title", title);
         options.put("subtitle", subtitle);
-        if(enableExport) options.put("export", "true");
+        if (enableExport) options.put("export", "true");
         else options.put("export", "false");
 
         chartView.setOptions(OptionsProvider.provideOptionsForChartType(options, (ArrayList) daySeries, "day"));
@@ -59,31 +59,30 @@ public class ChartsManager {
     }
 
 
-
-    void updateChart(
+    public void updateChart(
             HIChartView chartView,
             Context c,
             String chartType,
             String dataFilename,
             String scale
-    ){
-        if(chartType.equals("area")) title = "Steps";
+    ) {
+        if (chartType.equals("area")) title = "Steps";
         else title = "Calories";
 
         Double total = 0.0;
         String subtitle;
 
         Map allSeries = jsonFileToMap(dataFilename, c);
-        List<Double> scaleSeries = (List)allSeries.get(scale); // we pass scale of the chart (day, week, etc...)
+        List<Double> scaleSeries = (List) allSeries.get(scale); // we pass scale of the chart (day, week, etc...)
         StringBuilder series = new StringBuilder();
         for (Double d : scaleSeries) {
             series.append(String.valueOf(d.intValue()));
             series.append(",");
             total = total + d;
         }
-        series.deleteCharAt(series.length()-1);
+        series.deleteCharAt(series.length() - 1);
         subtitle = (String.valueOf(total));
-        subtitle = subtitle.substring(0, subtitle.length()-2);
+        subtitle = subtitle.substring(0, subtitle.length() - 2);
 
         Map<String, String> options = new HashMap<>();
         options.put("chartType", chartType);
@@ -112,18 +111,19 @@ public class ChartsManager {
 
     private static Map<String, Object> jsonFileToMap(String fileName, Context c) {
         Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, Object>>(){}.getType();
+        Type type = new TypeToken<Map<String, Object>>() {
+        }.getType();
         Map<String, Object> map = gson.fromJson(loadJSONFromAsset(fileName, c), type);
         return map;
     }
 
-    static ArrayList<String> returnDates(String dataFilename, Context c){
+    public static ArrayList<String> returnDates(String dataFilename, Context c) {
         ArrayList<String> dates = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Map series = ChartsManager.jsonFileToMap(dataFilename, c);
-        for(Object o: (List)series.get("all")){
-            if(o instanceof Map){
-                Double d = ((Double) ((Map)o).get("date"));
+        for (Object o : (List) series.get("all")) {
+            if (o instanceof Map) {
+                Double d = ((Double) ((Map) o).get("date"));
                 Timestamp timestamp = new Timestamp(d.longValue() * 1000L);
                 String strDate = dateFormat.format(new Date(timestamp.getTime()));
                 dates.add(strDate);
@@ -132,7 +132,7 @@ public class ChartsManager {
         return dates;
     }
 
-    static ArrayList<String> returnSamples(String dataFilename, Context c) {
+    public static ArrayList<String> returnSamples(String dataFilename, Context c) {
         ArrayList<String> samples = new ArrayList<>();
         String sample;
         int i;

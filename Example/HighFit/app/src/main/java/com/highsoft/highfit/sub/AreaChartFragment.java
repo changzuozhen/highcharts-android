@@ -1,4 +1,4 @@
-package com.highsoft.highfit;
+package com.highsoft.highfit.sub;
 
 
 import android.app.Fragment;
@@ -9,8 +9,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
 import com.highsoft.highcharts.core.HIChartView;
+import com.highsoft.highfit.ChartsManager;
+import com.highsoft.highfit.DetailedDataFragment;
+import com.highsoft.highfit.R;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -47,7 +55,7 @@ public class AreaChartFragment extends Fragment {
 
             final HIChartView chartView = (HIChartView) view.findViewById(R.id.area);
             float height = getResources().getDisplayMetrics().heightPixels;
-            chartView.getLayoutParams().height = Math.round(height*2/5);
+            chartView.getLayoutParams().height = Math.round(height * 2 / 5);
             final Context c = view.getContext();
             final ArrayList<String> samples = ChartsManager.returnSamples("DataSteps.json", c);
             final ArrayList<String> dates = ChartsManager.returnDates("DataSteps.json", c);
@@ -60,7 +68,7 @@ public class AreaChartFragment extends Fragment {
             Button monthButton = (Button) view.findViewById(R.id.monthButArea);
             Button yearButton = (Button) view.findViewById(R.id.yearButArea);
             try {
-                FileInputStream fileInputStream = new FileInputStream(getActivity().getFilesDir().getAbsolutePath()+"/" + dashboardFileName);
+                FileInputStream fileInputStream = new FileInputStream(getActivity().getFilesDir().getAbsolutePath() + "/" + dashboardFileName);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 dashboardCharts = (Map) objectInputStream.readObject();
                 fileInputStream.close();

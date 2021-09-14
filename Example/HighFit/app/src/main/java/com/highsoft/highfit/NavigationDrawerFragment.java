@@ -11,8 +11,16 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -91,17 +99,21 @@ public class NavigationDrawerFragment extends Fragment {
         });
         String[] items = {
                 getString(R.string.Dashboard),
-                getString(R.string.Data)
+                getString(R.string.Data),
+                "test1",
+                "test2",
         };
 
         Integer[] images = {
                 R.drawable.ic_content_paste_black_48dp,
-                R.drawable.ic_insert_chart_black_48dp
+                R.drawable.ic_insert_chart_black_48dp,
+                R.drawable.ic_content_paste_black_48dp,
+                R.drawable.ic_content_paste_black_48dp,
         };
         mDrawerListView.setAdapter(new DrawerListAdapter(getActivity(), items, images));
 
 //        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        mDrawerListView.setItemChecked(0,true);
+        mDrawerListView.setItemChecked(0, true);
         return mDrawerListView;
     }
 
@@ -254,18 +266,19 @@ public class NavigationDrawerFragment extends Fragment {
         void onNavigationDrawerItemSelected(int position);
     }
 
-    private class DrawerListAdapter extends ArrayAdapter<String>{
+    private class DrawerListAdapter extends ArrayAdapter<String> {
         private final Activity context;
         private final String[] itemname;
         private final Integer[] imgid;
 
-        public DrawerListAdapter(Activity context, String[] itemname, Integer[] imgid){
+        public DrawerListAdapter(Activity context, String[] itemname, Integer[] imgid) {
             super(context, R.layout.list_menu_drawer_item, itemname);
             this.context = context;
             this.itemname = itemname;
             this.imgid = imgid;
         }
-        public View getView(int position,View view,ViewGroup parent) {
+
+        public View getView(int position, View view, ViewGroup parent) {
             if (view == null) {
                 view = getActivity().getLayoutInflater().inflate(R.layout.list_menu_drawer_item, null, false);
             }

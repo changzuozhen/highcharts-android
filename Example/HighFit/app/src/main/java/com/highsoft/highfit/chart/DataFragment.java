@@ -1,14 +1,23 @@
-package com.highsoft.highfit;
+package com.highsoft.highfit.chart;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.highsoft.highfit.R;
+import com.highsoft.highfit.sub.AreaChartFragment;
+import com.highsoft.highfit.sub.ColumnChartFragment;
+import com.highsoft.highfit.sub.SplineChartFragment;
 
 
 /**
@@ -23,9 +32,9 @@ public class DataFragment extends Fragment {
     };
 
     private Integer[] imgid = {
-        R.drawable.ic_directions_walk_black_48dp,
-        R.drawable.ic_local_dining_black_48dp,
-        R.drawable.ic_whatshot_black_48dp
+            R.drawable.ic_directions_walk_black_48dp,
+            R.drawable.ic_local_dining_black_48dp,
+            R.drawable.ic_whatshot_black_48dp
     };
 
     public DataFragment() {
@@ -42,7 +51,7 @@ public class DataFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
-                switch (position){
+                switch (position) {
                     case 0:
                         fragmentTransaction.replace(R.id.container, new AreaChartFragment(), "AreaChartFragment");
                         fragmentTransaction.commit();
@@ -65,15 +74,17 @@ public class DataFragment extends Fragment {
 
     private class DataMenuAdapter extends BaseAdapter {
         @Override
-        public int getCount(){
+        public int getCount() {
             return dataMenuItems.length;
         }
+
         @Override
-        public String getItem(int position){
+        public String getItem(int position) {
             return dataMenuItems[position];
         }
+
         @Override
-        public long getItemId(int position){
+        public long getItemId(int position) {
             return dataMenuItems[position].hashCode();
         }
 
@@ -86,8 +97,8 @@ public class DataFragment extends Fragment {
 
             ((TextView) convertView.findViewById(android.R.id.text1))
                     .setText(getItem(position));
-           ((ImageView) convertView.findViewById(R.id.itemIcon))
-                   .setImageResource(imgid[position]);
+            ((ImageView) convertView.findViewById(R.id.itemIcon))
+                    .setImageResource(imgid[position]);
 
             return convertView;
         }

@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
+import com.highsoft.highfit.chart.DashboardFragment;
+import com.highsoft.highfit.chart.DataFragment;
+
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -43,9 +46,9 @@ public class MainActivity extends Activity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        switch (position){
+        switch (position) {
             case 0:
-                if(fragmentManager.findFragmentByTag("CHARTS") != null){
+                if (fragmentManager.findFragmentByTag("CHARTS") != null) {
                     fragmentManager.beginTransaction()
                             .show(fragmentManager.findFragmentByTag("CHARTS"))
                             .commit();
@@ -54,14 +57,14 @@ public class MainActivity extends Activity
                             .replace(R.id.container, new DashboardFragment(), "CHARTS")
                             .commit();
                 }
-                if(fragmentManager.findFragmentByTag("DATA") != null){
+                if (fragmentManager.findFragmentByTag("DATA") != null) {
                     fragmentManager.beginTransaction()
                             .hide(fragmentManager.findFragmentByTag("DATA"))
                             .commit();
                 }
                 break;
             case 1:
-                if(fragmentManager.findFragmentByTag("DATA") != null){
+                if (fragmentManager.findFragmentByTag("DATA") != null) {
                     fragmentManager.beginTransaction()
                             .show(fragmentManager.findFragmentByTag("DATA"))
                             .commit();
@@ -70,19 +73,29 @@ public class MainActivity extends Activity
                             .replace(R.id.container, new DataFragment(), "DATA")
                             .commit();
                 }
-                if(fragmentManager.findFragmentByTag("CHARTS") != null){
+                if (fragmentManager.findFragmentByTag("CHARTS") != null) {
                     fragmentManager.beginTransaction()
                             .hide(fragmentManager.findFragmentByTag("CHARTS"))
                             .commit();
                 }
                 break;
+            case 2:
+                if (fragmentManager.findFragmentByTag("TEST") != null) {
+                    fragmentManager.beginTransaction()
+                            .show(fragmentManager.findFragmentByTag("TEST"))
+                            .commit();
+                } else {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new DataFragment(), "TEST")
+                            .commit();
+                }
         }
     }
 
     @Override
     public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
-        if(count == 0 ) {
+        if (count == 0) {
             new AlertDialog.Builder(this)
                     .setMessage("Are you sure you want to exit?")
                     .setNegativeButton(android.R.string.no, null)
@@ -92,8 +105,7 @@ public class MainActivity extends Activity
                             MainActivity.super.onBackPressed();
                         }
                     }).create().show();
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
     }
 
     @Override

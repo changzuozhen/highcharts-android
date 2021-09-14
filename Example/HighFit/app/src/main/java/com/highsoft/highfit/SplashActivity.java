@@ -18,7 +18,7 @@ public class SplashActivity extends Activity {
     private class appLauncher extends Thread {
         @Override
         public void run() {
-            try{
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

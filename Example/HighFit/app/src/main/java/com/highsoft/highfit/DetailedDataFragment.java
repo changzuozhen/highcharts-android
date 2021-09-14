@@ -1,8 +1,8 @@
 package com.highsoft.highfit;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,34 +29,38 @@ public class DetailedDataFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        
+
         Bundle bundle = this.getArguments();
         samples = bundle.getStringArrayList("SamplesArrayList");
         dates = bundle.getStringArrayList("DatesArrayList");
         View view = inflater.inflate(R.layout.fragment_data_all, container, false);
         TextView textView = (TextView) view.findViewById(R.id.unitTxt);
         textView.setText(bundle.getString("unit"));
-        ListView listView = (ListView)view.findViewById(R.id.listDetailedData);
+        ListView listView = (ListView) view.findViewById(R.id.listDetailedData);
         listView.setAdapter(new DetailedDataAdapter());
         return view;
     }
 
     private class DetailedDataAdapter extends BaseAdapter {
         @Override
-        public int getCount(){
+        public int getCount() {
             return samples.size();
         }
+
         @Override
-        public String getItem(int position){
+        public String getItem(int position) {
             return samples.get(position);
         }
-        public String getDateItem(int position){
+
+        public String getDateItem(int position) {
             return dates.get(position);
         }
+
         @Override
-        public long getItemId(int position){
+        public long getItemId(int position) {
             return samples.get(position).hashCode();
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup container) {
             if (convertView == null) {

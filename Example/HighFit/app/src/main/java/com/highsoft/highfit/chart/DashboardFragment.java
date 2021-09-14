@@ -1,4 +1,4 @@
-package com.highsoft.highfit;
+package com.highsoft.highfit.chart;
 
 
 import android.app.Fragment;
@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.highsoft.highcharts.core.HIChartView;
+import com.highsoft.highfit.ChartsManager;
+import com.highsoft.highfit.R;
+import com.highsoft.highfit.sub.AreaChartFragment;
+import com.highsoft.highfit.sub.ColumnChartFragment;
+import com.highsoft.highfit.sub.SplineChartFragment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,9 +26,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.highsoft.highcharts.common.hichartsclasses.HIChart;
-import com.highsoft.highcharts.core.HIChartView;
 
 
 /**
@@ -54,11 +57,11 @@ public class DashboardFragment extends Fragment {
             String dashboardFileName = "dashboardCharts.txt";
             String filePath = getActivity().getFilesDir().getAbsolutePath() + "/" + dashboardFileName;
             File file = new File(filePath);
-            if(file.exists()){
+            if (file.exists()) {
                 try {
-                    FileInputStream fileInputStream = new FileInputStream(getActivity().getFilesDir().getAbsolutePath()+"/" + dashboardFileName);
+                    FileInputStream fileInputStream = new FileInputStream(getActivity().getFilesDir().getAbsolutePath() + "/" + dashboardFileName);
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                    dashboardCharts = (Map)objectInputStream.readObject();
+                    dashboardCharts = (Map) objectInputStream.readObject();
                     fileInputStream.close();
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -79,7 +82,7 @@ public class DashboardFragment extends Fragment {
             }
         }
 
-        if(view !=null){
+        if (view != null) {
             float height = getResources().getDisplayMetrics().heightPixels;
             Context c = view.getContext();
             ChartsManager manager = new ChartsManager();
@@ -88,9 +91,9 @@ public class DashboardFragment extends Fragment {
             fragmentTransaction.addToBackStack(null);
 
 
-            if(dashboardCharts.get("area")){
+            if (dashboardCharts.get("area")) {
                 areaView.setWillNotDraw(false);
-                areaView.getLayoutParams().height = Math.round(height*2/5);
+                areaView.getLayoutParams().height = Math.round(height * 2 / 5);
                 manager.setChart(areaView, c, "area", "DataSteps.json", false);
                 ImageButton areaInfoBtn = (ImageButton) areaView.findViewById(R.id.infoBtn);
                 areaInfoBtn.bringToFront();
@@ -103,9 +106,9 @@ public class DashboardFragment extends Fragment {
                     }
                 });
             }
-            if(dashboardCharts.get("spline")){
+            if (dashboardCharts.get("spline")) {
                 splineView.setWillNotDraw(false);
-                splineView.getLayoutParams().height = Math.round(height*2/5);
+                splineView.getLayoutParams().height = Math.round(height * 2 / 5);
                 manager.setChart(splineView, c, "spline", "DataCaloriesIn.json", false);
                 ImageButton splineInfoBtn = (ImageButton) splineView.findViewById(R.id.infoBtn);
                 splineInfoBtn.bringToFront();
@@ -118,9 +121,9 @@ public class DashboardFragment extends Fragment {
                     }
                 });
             }
-            if(dashboardCharts.get("column")){
+            if (dashboardCharts.get("column")) {
                 columnView.setWillNotDraw(false);
-                columnView.getLayoutParams().height = Math.round(height*2/5);
+                columnView.getLayoutParams().height = Math.round(height * 2 / 5);
                 manager.setChart(columnView, c, "column", "DataCaloriesOut.json", false);
                 ImageButton columnInfoBtn = (ImageButton) columnView.findViewById(R.id.infoBtn);
                 columnInfoBtn.bringToFront();
@@ -136,8 +139,6 @@ public class DashboardFragment extends Fragment {
         }
         return view;
     }
-
-
 
 
 }

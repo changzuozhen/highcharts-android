@@ -1,17 +1,36 @@
 package com.highsoft.highfit;
 
-import com.highsoft.highcharts.common.*;
-import com.highsoft.highcharts.common.hichartsclasses.*;
+import com.highsoft.highcharts.common.HIColor;
+import com.highsoft.highcharts.common.HIGradient;
+import com.highsoft.highcharts.common.HIStop;
+import com.highsoft.highcharts.common.hichartsclasses.HIArea;
+import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
+import com.highsoft.highcharts.common.hichartsclasses.HICSSObject;
+import com.highsoft.highcharts.common.hichartsclasses.HIChart;
+import com.highsoft.highcharts.common.hichartsclasses.HIColumn;
+import com.highsoft.highcharts.common.hichartsclasses.HICredits;
+import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
+import com.highsoft.highcharts.common.hichartsclasses.HILabels;
+import com.highsoft.highcharts.common.hichartsclasses.HINavigation;
+import com.highsoft.highcharts.common.hichartsclasses.HIOptions;
+import com.highsoft.highcharts.common.hichartsclasses.HIPlotOptions;
+import com.highsoft.highcharts.common.hichartsclasses.HISeries;
+import com.highsoft.highcharts.common.hichartsclasses.HISpline;
+import com.highsoft.highcharts.common.hichartsclasses.HISubtitle;
+import com.highsoft.highcharts.common.hichartsclasses.HITheme;
+import com.highsoft.highcharts.common.hichartsclasses.HITitle;
+import com.highsoft.highcharts.common.hichartsclasses.HITooltip;
+import com.highsoft.highcharts.common.hichartsclasses.HIXAxis;
+import com.highsoft.highcharts.common.hichartsclasses.HIYAxis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class OptionsProvider {
 
-    public static HIOptions provideOptionsForChartType(Map<String, String> options, ArrayList series, String type){
+    public static HIOptions provideOptionsForChartType(Map<String, String> options, ArrayList series, String type) {
         String categories[] = new String[0];
         Double step = null;
 
@@ -32,7 +51,7 @@ public class OptionsProvider {
                 break;
         }
 
-        if(options.get("chartType").equals("area")){
+        if (options.get("chartType").equals("area")) {
 
             HIOptions hiOptions = new HIOptions();
 
@@ -52,9 +71,9 @@ public class OptionsProvider {
 
             HINavigation navigation = new HINavigation();
             navigation.setButtonOptions(new HIButtonOptions());
-            navigation.getButtonOptions().setSymbolStroke(HIColor.initWithRGBA(255,255,255,0.4));
+            navigation.getButtonOptions().setSymbolStroke(HIColor.initWithRGBA(255, 255, 255, 0.4));
             HITheme theme = new HITheme();
-            theme.setFill(HIColor.initWithRGBA(0,0,0,0));
+            theme.setFill(HIColor.initWithRGBA(0, 0, 0, 0));
             navigation.getButtonOptions().setTheme(theme);
             hiOptions.setNavigation(navigation);
 
@@ -88,8 +107,8 @@ public class OptionsProvider {
 
             HISubtitle subtitle = new HISubtitle();
             subtitle.setText(options.get("subtitle"));
-            if(subtitle.getText().length() > 0) subtitle.setText(subtitle.getText() + " total");
-            subtitle.setAlign( "left");
+            if (subtitle.getText().length() > 0) subtitle.setText(subtitle.getText() + " total");
+            subtitle.setAlign("left");
             HICSSObject subtitleStyle = new HICSSObject();
             subtitleStyle.setFontFamily("Arial");
             subtitleStyle.setFontSize("9px");
@@ -109,7 +128,9 @@ public class OptionsProvider {
             xaxis.getLabels().setStyle(xaxisStyle);
             xaxis.getLabels().setStep(step);
             xaxis.setCategories(new ArrayList<>(Arrays.asList(categories)));
-            hiOptions.setXAxis(new ArrayList<HIXAxis>(){{add(xaxis);}});
+            hiOptions.setXAxis(new ArrayList<HIXAxis>() {{
+                add(xaxis);
+            }});
 
             final HIYAxis yaxis = new HIYAxis();
             yaxis.setLineColor(HIColor.initWithRGBA(255, 255, 255, 0.3));
@@ -124,7 +145,9 @@ public class OptionsProvider {
             yaxis.getLabels().setX(-5);
             yaxis.setTitle(new HITitle());
             yaxis.getTitle().setText("");
-            hiOptions.setYAxis(new ArrayList<HIYAxis>(){{add(yaxis);}});
+            hiOptions.setYAxis(new ArrayList<HIYAxis>() {{
+                add(yaxis);
+            }});
 
             final HIArea area = new HIArea();
             area.setTooltip(new HITooltip());
@@ -134,12 +157,14 @@ public class OptionsProvider {
             area.setData(series);
             area.setColor(HIColor.initWithRGB(255, 255, 255));
             area.setName(options.get("title"));
-            hiOptions.setSeries(new ArrayList<HISeries>(){{add(area);}});
+            hiOptions.setSeries(new ArrayList<HISeries>() {{
+                add(area);
+            }});
 
             return hiOptions;
         }
 
-        if(options.get("chartType").equals("column")){
+        if (options.get("chartType").equals("column")) {
 
             HIOptions hiOptions = new HIOptions();
 
@@ -162,7 +187,7 @@ public class OptionsProvider {
             navigation.setButtonOptions(new HIButtonOptions());
             navigation.getButtonOptions().setSymbolStroke(HIColor.initWithRGBA(255, 255, 255, 0.4));
             HITheme theme = new HITheme();
-            theme.setFill(HIColor.initWithRGBA(0,0,0,0));
+            theme.setFill(HIColor.initWithRGBA(0, 0, 0, 0));
             navigation.getButtonOptions().setTheme(theme);
             hiOptions.setNavigation(navigation);
 
@@ -221,7 +246,9 @@ public class OptionsProvider {
             xaxis.getLabels().setStyle(xLabelsStyle);
             xaxis.getLabels().setStep(step);
             xaxis.setCategories(new ArrayList<>(Arrays.asList(categories)));
-            hiOptions.setXAxis(new ArrayList<HIXAxis>(){{add(xaxis);}});
+            hiOptions.setXAxis(new ArrayList<HIXAxis>() {{
+                add(xaxis);
+            }});
 
             final HIYAxis yaxis = new HIYAxis();
             yaxis.setLineWidth(1);
@@ -236,7 +263,9 @@ public class OptionsProvider {
             yaxis.getLabels().setX(-5);
             yaxis.setTitle(new HITitle());
             yaxis.getTitle().setText("");
-            hiOptions.setYAxis(new ArrayList<HIYAxis>(){{add(yaxis);}});
+            hiOptions.setYAxis(new ArrayList<HIYAxis>() {{
+                add(yaxis);
+            }});
 
             final HIColumn column = new HIColumn();
             column.setTooltip(new HITooltip());
@@ -245,12 +274,14 @@ public class OptionsProvider {
             column.setShowInLegend(false);
             column.setData(series);
             column.setName(options.get("title"));
-            hiOptions.setSeries(new ArrayList<HISeries>(){{add(column);}});
+            hiOptions.setSeries(new ArrayList<HISeries>() {{
+                add(column);
+            }});
 
             return hiOptions;
         }
 
-        if (options.get("chartType").equals("spline")){
+        if (options.get("chartType").equals("spline")) {
 
             HIOptions hiOptions = new HIOptions();
 
@@ -273,7 +304,7 @@ public class OptionsProvider {
             navigation.setButtonOptions(new HIButtonOptions());
             navigation.getButtonOptions().setSymbolStroke(HIColor.initWithRGBA(255, 255, 255, 0.4));
             HITheme theme = new HITheme();
-            theme.setFill(HIColor.initWithRGBA(0,0,0,0));
+            theme.setFill(HIColor.initWithRGBA(0, 0, 0, 0));
             navigation.getButtonOptions().setTheme(theme);
             hiOptions.setNavigation(navigation);
 
@@ -330,7 +361,9 @@ public class OptionsProvider {
             xaxis.getLabels().setStyle(xLabelsStyle);
             xaxis.getLabels().setStep(step);
             xaxis.setCategories(new ArrayList<>(Arrays.asList(categories)));
-            hiOptions.setXAxis(new ArrayList<HIXAxis>(){{add(xaxis);}});
+            hiOptions.setXAxis(new ArrayList<HIXAxis>() {{
+                add(xaxis);
+            }});
 
             final HIYAxis yaxis = new HIYAxis();
             yaxis.setLineWidth(1);
@@ -345,7 +378,9 @@ public class OptionsProvider {
             yaxis.getLabels().setX(-5);
             yaxis.setTitle(new HITitle());
             yaxis.getTitle().setText("");
-            hiOptions.setYAxis(new ArrayList<HIYAxis>(){{add(yaxis);}});
+            hiOptions.setYAxis(new ArrayList<HIYAxis>() {{
+                add(yaxis);
+            }});
 
             final HISpline spline = new HISpline();
             spline.setTooltip(new HITooltip());
@@ -354,7 +389,9 @@ public class OptionsProvider {
             spline.setShowInLegend(false);
             spline.setData(series);
             spline.setName(options.get("title"));
-            hiOptions.setSeries(new ArrayList<HISeries>(){{add(spline);}});
+            hiOptions.setSeries(new ArrayList<HISeries>() {{
+                add(spline);
+            }});
 
             return hiOptions;
         }
